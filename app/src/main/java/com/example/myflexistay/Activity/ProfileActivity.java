@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myflexistay.Api.ApiClient;
@@ -22,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Button btn1;
     ApiClient apiClient;
+    TextView myListing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         apiClient = new ApiClient();
         getProfile();
+
+        myListing = findViewById(R.id.Pro1);
+
+        myListing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMylisting = new Intent(ProfileActivity.this, MyListing_Activity.class);
+                startActivity(intentMylisting);
+            }
+        });
     }
 
     private void getProfile() {

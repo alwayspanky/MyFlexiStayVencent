@@ -24,7 +24,13 @@ import com.example.myflexistay.Adapter.ImageAdapter;
 
 import java.util.ArrayList;
 
+import com.example.myflexistay.Api.ApiClient;
 import com.example.myflexistay.R;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +85,7 @@ public class PropertyDetailsFragment4 extends Fragment {
     ImageAdapter imageAdapter;
     ArrayList<Uri> Images = new ArrayList<>();
     LinearLayout imagelayout;
+    ApiClient apiClient;
 
 
     @Override
@@ -91,13 +98,40 @@ public class PropertyDetailsFragment4 extends Fragment {
         Button pro4 = v.findViewById(R.id.fragment_button4);
         recyclerView = v.findViewById(R.id.image_recycler);
         imagelayout = v.findViewById(R.id.image_layout);
-
-
+        apiClient = new ApiClient();
 
 
         pro4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                for(int i=0; i<Images.size();i++){
+
+                    JsonObject data = new JsonObject();
+
+                    String img = Images.toString();
+
+                    data.addProperty("s_token","WbZXwXhw1E69a3pOQtyvN72WvNAOuOtXaAByIcGUwztTLa9GNFlMlPMt64aoIaVQ");
+                    data.addProperty("listing_id","1");
+                    data.addProperty("media_url","");
+                    data.addProperty("s_desciption","Balcony 2");
+
+                    apiClient.apiInterface.postAddMedia(data).enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            if (response.isSuccessful()){
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                        }
+                    });
+                }
+
+
                 PropertyDetailsFragment5 fragment5 = new PropertyDetailsFragment5();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

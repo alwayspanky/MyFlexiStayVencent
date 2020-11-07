@@ -6,12 +6,15 @@ import com.example.myflexistay.Model.Apartment_Type;
 import com.example.myflexistay.Model.Availability;
 import com.example.myflexistay.Model.CountryModel;
 import com.example.myflexistay.Model.Facing;
+import com.example.myflexistay.Model.ListingTypeModel;
 import com.example.myflexistay.Model.LoginModel;
 import com.example.myflexistay.Model.Parking;
+import com.example.myflexistay.Model.PropertyClassesModel;
 import com.example.myflexistay.Model.Property_Age;
 import com.example.myflexistay.Model.RegisterModel;
 import com.example.myflexistay.Model.SendOtpModel;
 import com.example.myflexistay.Model.Tenant;
+import com.example.myflexistay.Model.UserTypeModel;
 import com.example.myflexistay.Model.ValidateOtpModel;
 import com.google.gson.JsonObject;
 
@@ -38,8 +41,11 @@ public interface ApiInterface {
     Call<JsonObject> RegisterMethodPost(@Body JsonObject data);
 
 
-    @GET("getAllContries")
-    Call<List<CountryModel>> getAllContries();
+    @GET("getCountry")
+    Call<CountryModel> getAllCountries();
+
+    @GET("getUserTypes")
+    Call<UserTypeModel> getAllUserType();
 
     @Headers({"Content-type: application/json","Accept: */*"})
     @POST("sendOtp")
@@ -52,6 +58,18 @@ public interface ApiInterface {
     @Headers({"Content-type: application/json","Accept: */*"})
     @POST("getProfile")
     Call<JsonObject> profileMethodPost(@Body JsonObject data);
+
+
+    //////////////////Property screens api
+    @GET("getListingTypes")
+    Call<ListingTypeModel> getListingType();
+
+    @GET("getLiPropertyClasses")
+    Call<PropertyClassesModel> getPropertyClasses();
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("createListing")
+    Call<JsonObject> createListing(@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
     @GET("getPropertyTypes")
@@ -79,7 +97,7 @@ public interface ApiInterface {
     Call<Amenities> getAmenities();
 
 
-    // Post Property Details Api request
+    // Post Api of Property Details
 
     @Headers({"Content-type: application/json","Accept: */*"})
     @POST("createOrUpdatePropertyDetails")
@@ -98,9 +116,13 @@ public interface ApiInterface {
     Call<JsonObject> postAmenityDetails(@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("addMedia")
+    Call<JsonObject> postAddMedia(@Body JsonObject data);
+
+    @Headers({"Content-type: application/json","Accept: */*"})
     @POST("createOrUpdateSchedule")
     Call<JsonObject> postScheduleDetails(@Body JsonObject data);
 
 
-    //Post Property Details Api request
+    //Post api of Property Details
 }

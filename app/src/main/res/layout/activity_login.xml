@@ -8,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
     <LinearLayout
@@ -205,5 +209,6 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,108 +1,177 @@
 package com.example.myflexistay.Model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class ProfileModel {
 
-    @SerializedName("first_name")
-    @Expose
-    private String firstName;
-    @SerializedName("last_name")
-    @Expose
-    private String lastName;
-    @SerializedName("mobile")
-    @Expose
-    private String mobile;
-    @SerializedName("mobile_validated")
-    @Expose
-    private Boolean mobileValidated;
-    @SerializedName("email")
-    @Expose
-    private String email;
-    @SerializedName("email_validated")
-    @Expose
-    private Boolean emailValidated;
-    @SerializedName("pref_language")
-    @Expose
-    private String prefLanguage;
-    @SerializedName("profile_image")
-    @Expose
-    private String profileImage;
-    @SerializedName("reference_code")
-    @Expose
-    private Object referenceCode;
 
-    public String getFirstName() {
-        return firstName;
+    /**
+     * response : {"statusCode":"SUCCESS","statusMessage":"Query succeeded."}
+     * profile : {"first_name":"Prarthana","last_name":"Shankar","mobile":{"isd_code":91,"number":9606349900},"mobile_validated":false,"email":"shankar.prarthana@gmail.com","email_validated":false,"pref_language":"English","profile_image":"unverified/IMG_20190508_185451_307.jpg","reference_code":null}
+     */
+
+    private ResponseBean response;
+    private ProfileBean profile;
+
+    public ResponseBean getResponse() {
+        return response;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setResponse(ResponseBean response) {
+        this.response = response;
     }
 
-    public String getLastName() {
-        return lastName;
+    public ProfileBean getProfile() {
+        return profile;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setProfile(ProfileBean profile) {
+        this.profile = profile;
     }
 
-    public String getMobile() {
-        return mobile;
+    public static class ResponseBean {
+        /**
+         * statusCode : SUCCESS
+         * statusMessage : Query succeeded.
+         */
+
+        private String statusCode;
+        private String statusMessage;
+
+        public String getStatusCode() {
+            return statusCode;
+        }
+
+        public void setStatusCode(String statusCode) {
+            this.statusCode = statusCode;
+        }
+
+        public String getStatusMessage() {
+            return statusMessage;
+        }
+
+        public void setStatusMessage(String statusMessage) {
+            this.statusMessage = statusMessage;
+        }
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+    public static class ProfileBean {
+        /**
+         * first_name : Prarthana
+         * last_name : Shankar
+         * mobile : {"isd_code":91,"number":9606349900}
+         * mobile_validated : false
+         * email : shankar.prarthana@gmail.com
+         * email_validated : false
+         * pref_language : English
+         * profile_image : unverified/IMG_20190508_185451_307.jpg
+         * reference_code : null
+         */
 
-    public Boolean getMobileValidated() {
-        return mobileValidated;
-    }
+        private String first_name;
+        private String last_name;
+        private MobileBean mobile;
+        private boolean mobile_validated;
+        private String email;
+        private boolean email_validated;
+        private String pref_language;
+        private String profile_image;
+        private Object reference_code;
 
-    public void setMobileValidated(Boolean mobileValidated) {
-        this.mobileValidated = mobileValidated;
-    }
+        public String getFirst_name() {
+            return first_name;
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        public void setFirst_name(String first_name) {
+            this.first_name = first_name;
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public String getLast_name() {
+            return last_name;
+        }
 
-    public Boolean getEmailValidated() {
-        return emailValidated;
-    }
+        public void setLast_name(String last_name) {
+            this.last_name = last_name;
+        }
 
-    public void setEmailValidated(Boolean emailValidated) {
-        this.emailValidated = emailValidated;
-    }
+        public MobileBean getMobile() {
+            return mobile;
+        }
 
-    public String getPrefLanguage() {
-        return prefLanguage;
-    }
+        public void setMobile(MobileBean mobile) {
+            this.mobile = mobile;
+        }
 
-    public void setPrefLanguage(String prefLanguage) {
-        this.prefLanguage = prefLanguage;
-    }
+        public boolean isMobile_validated() {
+            return mobile_validated;
+        }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
+        public void setMobile_validated(boolean mobile_validated) {
+            this.mobile_validated = mobile_validated;
+        }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
+        public String getEmail() {
+            return email;
+        }
 
-    public Object getReferenceCode() {
-        return referenceCode;
-    }
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-    public void setReferenceCode(Object referenceCode) {
-        this.referenceCode = referenceCode;
-    }
+        public boolean isEmail_validated() {
+            return email_validated;
+        }
 
+        public void setEmail_validated(boolean email_validated) {
+            this.email_validated = email_validated;
+        }
+
+        public String getPref_language() {
+            return pref_language;
+        }
+
+        public void setPref_language(String pref_language) {
+            this.pref_language = pref_language;
+        }
+
+        public String getProfile_image() {
+            return profile_image;
+        }
+
+        public void setProfile_image(String profile_image) {
+            this.profile_image = profile_image;
+        }
+
+        public Object getReference_code() {
+            return reference_code;
+        }
+
+        public void setReference_code(Object reference_code) {
+            this.reference_code = reference_code;
+        }
+
+        public static class MobileBean {
+            /**
+             * isd_code : 91
+             * number : 9606349900
+             */
+
+            private int isd_code;
+            private long number;
+
+            public int getIsd_code() {
+                return isd_code;
+            }
+
+            public void setIsd_code(int isd_code) {
+                this.isd_code = isd_code;
+            }
+
+            public long getNumber() {
+                return number;
+            }
+
+            public void setNumber(long number) {
+                this.number = number;
+            }
+        }
+    }
 }

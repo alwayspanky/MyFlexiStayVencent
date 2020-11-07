@@ -1,15 +1,17 @@
 package com.example.myflexistay.Model;
 
-public class CountryModel {
+import java.io.Serializable;
+import java.util.List;
 
+public class UserTypeModel implements Serializable {
 
     /**
      * response : {"statusCode":"SUCCESS","statusMessage":"Query succeeded."}
-     * country : {"currency_id":1,"updation_date":"24-08-2020T15:40:00.00+05:30","code":"IN","operator_id":"OP","mobile_number_pattern":"[7-9][0-9]{9}","isd_code":91,"is_live":true,"language_id":1,"id":1,"name":"India","mobile_number_length":10,"creation_date":"24-08-2020T15:40:00.00+05:30"}
+     * types : [{"updation_date":"2020-10-11T17:49:08.411Z","code":"UR","operator_id":"OP","is_live":true,"id":1,"name":"Unregistered","creation_date":"2020-10-11T17:49:08.411Z"},{"updation_date":"2020-10-11T17:49:08.411Z","code":"RO","operator_id":"OP","is_live":true,"id":2,"name":"Registered Owner","creation_date":"2020-10-11T17:49:08.411Z"},{"updation_date":"2020-10-11T17:49:08.411Z","code":"RS","operator_id":"OP","is_live":true,"id":3,"name":"Registered Seller","creation_date":"2020-10-11T17:49:08.411Z"},{"updation_date":"2020-10-11T17:49:08.411Z","code":"RB","operator_id":"OP","is_live":true,"id":4,"name":"Registered Buyer","creation_date":"2020-10-11T17:49:08.411Z"},{"updation_date":"2020-10-11T17:49:08.411Z","code":"OP","operator_id":"OP","is_live":true,"id":5,"name":"Operations","creation_date":"2020-10-11T17:49:08.411Z"}]
      */
 
     private ResponseBean response;
-    private CountryBean country;
+    private List<TypesBean> types;
 
     public ResponseBean getResponse() {
         return response;
@@ -19,12 +21,12 @@ public class CountryModel {
         this.response = response;
     }
 
-    public CountryBean getCountry() {
-        return country;
+    public List<TypesBean> getTypes() {
+        return types;
     }
 
-    public void setCountry(CountryBean country) {
-        this.country = country;
+    public void setTypes(List<TypesBean> types) {
+        this.types = types;
     }
 
     public static class ResponseBean {
@@ -53,42 +55,24 @@ public class CountryModel {
         }
     }
 
-    public static class CountryBean {
+    public static class TypesBean {
         /**
-         * currency_id : 1
-         * updation_date : 24-08-2020T15:40:00.00+05:30
-         * code : IN
+         * updation_date : 2020-10-11T17:49:08.411Z
+         * code : UR
          * operator_id : OP
-         * mobile_number_pattern : [7-9][0-9]{9}
-         * isd_code : 91
          * is_live : true
-         * language_id : 1
          * id : 1
-         * name : India
-         * mobile_number_length : 10
-         * creation_date : 24-08-2020T15:40:00.00+05:30
+         * name : Unregistered
+         * creation_date : 2020-10-11T17:49:08.411Z
          */
 
-        private int currency_id;
         private String updation_date;
         private String code;
         private String operator_id;
-        private String mobile_number_pattern;
-        private int isd_code;
         private boolean is_live;
-        private int language_id;
         private int id;
         private String name;
-        private int mobile_number_length;
         private String creation_date;
-
-        public int getCurrency_id() {
-            return currency_id;
-        }
-
-        public void setCurrency_id(int currency_id) {
-            this.currency_id = currency_id;
-        }
 
         public String getUpdation_date() {
             return updation_date;
@@ -114,36 +98,12 @@ public class CountryModel {
             this.operator_id = operator_id;
         }
 
-        public String getMobile_number_pattern() {
-            return mobile_number_pattern;
-        }
-
-        public void setMobile_number_pattern(String mobile_number_pattern) {
-            this.mobile_number_pattern = mobile_number_pattern;
-        }
-
-        public int getIsd_code() {
-            return isd_code;
-        }
-
-        public void setIsd_code(int isd_code) {
-            this.isd_code = isd_code;
-        }
-
         public boolean isIs_live() {
             return is_live;
         }
 
         public void setIs_live(boolean is_live) {
             this.is_live = is_live;
-        }
-
-        public int getLanguage_id() {
-            return language_id;
-        }
-
-        public void setLanguage_id(int language_id) {
-            this.language_id = language_id;
         }
 
         public int getId() {
@@ -160,14 +120,6 @@ public class CountryModel {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public int getMobile_number_length() {
-            return mobile_number_length;
-        }
-
-        public void setMobile_number_length(int mobile_number_length) {
-            this.mobile_number_length = mobile_number_length;
         }
 
         public String getCreation_date() {
