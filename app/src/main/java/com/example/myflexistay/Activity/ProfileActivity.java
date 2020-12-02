@@ -1,6 +1,7 @@
 package com.example.myflexistay.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import com.example.myflexistay.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button btn1;
+
     ApiClient apiClient;
 
     @Override
@@ -36,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         JsonObject data = new JsonObject();
 
-        String token = "gmxguQrLozCrAZ45tSD0vAce2eK7OQc6Q11k1LG1QVnzeUo4syOflqU9ocr48Nix";
+        String token = "SLQdyA4ELQY0ddrDv4y7EKAOnlNUmUPXbGzgGN8AxF3EcA5OSZaoO26bc6lHMXVO";
 
         try {
             data.addProperty("token", token);
@@ -45,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        apiClient.apiInterface.LoginMethodPost(data).enqueue(new Callback<JsonObject>() {
+        apiClient.apiInterface.profileMethodPost(data).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {

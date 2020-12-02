@@ -6,6 +6,8 @@ import com.example.myflexistay.Model.Apartment_Type;
 import com.example.myflexistay.Model.Availability;
 import com.example.myflexistay.Model.CountryModel;
 import com.example.myflexistay.Model.Facing;
+import com.example.myflexistay.Model.Furnishing;
+import com.example.myflexistay.Model.Furnishing_Status;
 import com.example.myflexistay.Model.LoginModel;
 import com.example.myflexistay.Model.Parking;
 import com.example.myflexistay.Model.Property_Age;
@@ -13,6 +15,7 @@ import com.example.myflexistay.Model.RegisterModel;
 import com.example.myflexistay.Model.SendOtpModel;
 import com.example.myflexistay.Model.Tenant;
 import com.example.myflexistay.Model.ValidateOtpModel;
+import com.example.myflexistay.Model.WaterSupply;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -38,8 +41,12 @@ public interface ApiInterface {
     Call<JsonObject> RegisterMethodPost(@Body JsonObject data);
 
 
-    @GET("getAllContries")
-    Call<List<CountryModel>> getAllContries();
+    @GET("getCountry")
+    Call<CountryModel> getAllContries();
+
+
+    @POST("getSalt")
+    Call<JsonObject> SaltMethodPost (@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
     @POST("sendOtp")
@@ -78,8 +85,15 @@ public interface ApiInterface {
     @GET("getAmenities")
     Call<Amenities> getAmenities();
 
-
+    @GET("getWaterSupplyType")
+    Call<WaterSupply> getWaterSupply();
     // Post Property Details Api request
+
+    @GET("getFurnishingStatus")
+    Call<Furnishing_Status> getFurnishingStatus();
+
+    @GET("getFurnishings")
+    Call<Furnishing> getFurnishing();
 
     @Headers({"Content-type: application/json","Accept: */*"})
     @POST("createOrUpdatePropertyDetails")
@@ -90,7 +104,7 @@ public interface ApiInterface {
     Call<JsonObject> postLocalityDetails(@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
-    @POST("createOrUpdateRentailDetails")
+    @POST("createOrUpdateRentalDetails")
     Call<JsonObject> postRentalDetails(@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
@@ -98,8 +112,42 @@ public interface ApiInterface {
     Call<JsonObject> postAmenityDetails(@Body JsonObject data);
 
     @Headers({"Content-type: application/json","Accept: */*"})
-    @POST("createOrUpdateSchedule")
+    @POST("createOrUpdateScheduleDetails")
     Call<JsonObject> postScheduleDetails(@Body JsonObject data);
+
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("unlistListing")
+    Call<JsonObject> postunlistting(@Body JsonObject data);
+
+
+
+
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("publishListing")
+    Call<JsonObject> postPublishListing(@Body JsonObject data);
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("getCities")
+    Call<JsonObject> postCities(@Body JsonObject data);
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("getLocalities")
+    Call<JsonObject> postLocalities(@Body JsonObject data);
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("addAmenity")
+    Call<JsonObject> addAmenities(@Body JsonObject data);
+
+    @Headers({"Content-type: application/json","Accept: */*"})
+    @POST("updateFurnishing")
+    Call<JsonObject> postUpdateFurnishing(@Body JsonObject data);
+
+
+
+
+
 
 
     //Post Property Details Api request

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         searchView = findViewById(R.id.searchView);
         button = findViewById(R.id.button);
 

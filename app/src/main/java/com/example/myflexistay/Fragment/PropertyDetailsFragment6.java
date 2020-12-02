@@ -1,12 +1,11 @@
 package com.example.myflexistay.Fragment;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,26 +13,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
-import com.example.myflexistay.Adapter.Apartment_Type_Adapter;
-import com.example.myflexistay.Adapter.Availabilty_Adapter;
-import com.example.myflexistay.Adapter.Property_Age_Adapter;
+import com.example.myflexistay.Adapter.Amenties_Adapter;
+import com.example.myflexistay.Adapter.Furnishing_Adapter;
 import com.example.myflexistay.Api.ApiClient;
-import com.example.myflexistay.Model.Apartment_Type;
-import com.example.myflexistay.Model.Availability;
+import com.example.myflexistay.Model.Furnishing;
 import com.example.myflexistay.R;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,230 +34,92 @@ import retrofit2.Response;
 
 public class PropertyDetailsFragment6 extends Fragment {
 
-
-
-    public PropertyDetailsFragment6() {
-        // Required empty public constructor
-    }
-
-    private EditText availability;
+    Button Furnishing;
+    ArrayList<Furnishing.Furnishing_Types> furnishing_types;
+    ApiClient apiClient;
+    RadioButton radioButton;
     LinearLayout view;
     boolean opened;
-    ApiClient apiClient;
     RecyclerView recyclerView;
-    ArrayList<Availability.Available> availables;
-    String SelectedAvailabilty;
-    EditText picker1, picker2;
-    Button finishProperty;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v =  inflater.inflate(R.layout.fragment_property_details6, container, false);
+
+       View view =  inflater.inflate(R.layout.fragment_property_details7, container, false);
+
+        apiClient = new ApiClient();
+        furnishing_types = new ArrayList<>();
+        radioButton = view.findViewById(R.id.radio_button_furnish);
+        Furnishing = view.findViewById(R.id.furnishing_save_continue);
+        recyclerView = view.findViewById(R.id.furnishing_recycler);
+
+        apiClient.apiInterface.getFurnishing().enqueue(new Callback<com.example.myflexistay.Model.Furnishing>() {
+            @Override
+            public void onResponse(Call<Furnishing> call, Response<com.example.myflexistay.Model.Furnishing> response) {
+                if (response.isSuccessful()){
+                    furnishing_types = response.body().getFurnishing_types();
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    Furnishing_Adapter furnishing_adapter = new Furnishing_Adapter(getActivity(), furnishing_types);
+                    recyclerView.setAdapter(furnishing_adapter);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Furnishing> call, Throwable t) {
+                Log.d("TAG", "onFailure: "+t.toString());
+
+            }
+        });
 
 
-         availability = v.findViewById(R.id.edt_availability);
-         apiClient = new ApiClient();
-         view = v.findViewById(R.id.dropdown_layout);
-         recyclerView = v.findViewById(R.id.dropdown_recyclerview);
-         availables = new ArrayList<>();
-         picker1 = v.findViewById(R.id.date_picker1);
-         picker2 = v.findViewById(R.id.date_picker2);
-         finishProperty = v.findViewById(R.id.fragment_button6);
-
-
-         postProperty();
-
-
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        picker1.setOnClickListener(new View.OnClickListener() {
+        Furnishing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
+
+                JsonObject data = new JsonObject();
+
+                try {
+                    data.addProperty("s_token", "SLQdyA4ELQY0ddrDv4y7EKAOnlNUmUPXbGzgGN8AxF3EcA5OSZaoO26bc6lHMXVO");
+                    data.addProperty("listing_id", "1");
+                    data.addProperty("furnishing_id", "2");
+                    data.addProperty("quantity", "1");
+                }catch (JsonIOException e){
+                    e.printStackTrace();
+                }
+
+                apiClient.apiInterface.postUpdateFurnishing(data).enqueue(new Callback<JsonObject>() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month+1;
-                        String date = day+"/"+month+"/"+year;
-                        picker1.setText(date);
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if (response.isSuccessful()){
+
+                            PropertyDetailsFragment7 fragment7 = new PropertyDetailsFragment7();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_content, fragment7);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+
+                        }
                     }
-                }, year, month, day
-                );
-                datePickerDialog.show();
-            }
 
-        });
-
-        picker2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month+1;
-                        String date = day+"/"+month+"/"+year;
-                        picker2.setText(date);
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Log.d("TAG", "onFailure: "+t.toString());
+
+
                     }
-                }, year, month, day
-                );
-                datePickerDialog.show();
-            }
-        });
-
-
-         availability.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 hideKeyBoard(availability);
-
-                 apiClient.apiInterface.getAvailability().enqueue(new Callback<Availability>() {
-                     @Override
-                     public void onResponse(Call<Availability> call, Response<Availability> response) {
-                         if (response.isSuccessful()){
-                             availables.clear();
-                             availables.addAll(response.body().getAvailables());
-                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                             Availabilty_Adapter availabilty_adapter = new Availabilty_Adapter(getActivity(),availables);
-                             recyclerView.setAdapter(availabilty_adapter);
-                             availabilty_adapter.notifyDataSetChanged();
-                             availabilty_adapter.setOnOrderClickListener(new ClickListener());
-                         }
-                     }
-
-                     @Override
-                     public void onFailure(Call<Availability> call, Throwable t) {
-                         Log.d("TAG", "onFailure: "+t.toString());
-                     }
-                 });
-
-
-                 if (!opened) {
-                     view.setVisibility(View.VISIBLE);
-                     TranslateAnimation animate = new TranslateAnimation(
-                             0,
-                             0,
-                             view.getHeight(),
-                             0);
-                     animate.setDuration(500);
-                     animate.setFillAfter(true);
-                     view.startAnimation(animate);
-                 } else {
-                     view.setVisibility(View.INVISIBLE);
-                     TranslateAnimation animate = new TranslateAnimation(
-                             0,
-                             0,
-                             0,
-                             view.getHeight());
-                     animate.setDuration(500);
-                     animate.setFillAfter(true);
-                     view.startAnimation(animate);
-                 }
-                 opened = !opened;
-             }
-         });
-
-         return v;
-    }
-
-    private void postProperty() {
-
-        finishProperty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                String avail = availability.getText().toString();
-                String startTime = picker1.getText().toString();
-                String endTime = picker2.getText().toString();
-
-                int valid = 1;
-
-                if (avail.isEmpty() || avail.length() < 10) {
-                    availability.setError("Enter Availability");
-                    availability.requestFocus();
-                    valid = 0;
-                }
-
-                if (startTime.isEmpty() ) {
-                    picker1.setError("Enter Date");
-                    picker1.requestFocus();
-                    valid = 0;
-                }
-
-                if (endTime.isEmpty()) {
-                    picker2.setError("Enter Date ");
-                    picker2.requestFocus();
-                    valid = 0;
-                }
-
-                if (valid == 1){
-
-                    postScheduleDetails();
-                }
+                });
 
             }
         });
+
+
+
+        return view;
     }
-
-    private void postScheduleDetails() {
-
-        JsonObject data = new JsonObject();
-
-        try {
-            data.addProperty("listing_id", 2);
-            data.addProperty("s_token", "h72WYFvQwmhLzN2kFjWOmq2rR575ZKwrMY9UHtqvMlcAwxSzp7uynWgGzajTv4US");
-            data.addProperty("availability_type_id", 1);
-            data.addProperty("from_interval_id", 1);
-            data.addProperty("to_interval_id", 94);
-
-        } catch (JsonIOException e) {
-            e.printStackTrace();
-        }
-
-        apiClient.apiInterface.postScheduleDetails(data).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-
-                    Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(getActivity(), "Something went wrong !", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(getActivity(), "Network Problem !", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-
-    private class ClickListener implements Availabilty_Adapter.onOrderClickListener {
-
-        @Override
-        public void onOrderClickListener(Availability.Available availability1) {
-
-            SelectedAvailabilty = availability1.getName();
-             Log.d("TAG", "onOrderClickedListener: " + SelectedAvailabilty);
-//            availability.setName(SelectedAvailabilty);
-            availability.setText(SelectedAvailabilty);
-
-        }
-    }
-
-
-
-
-    public void hideKeyBoard(View view){
-    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-}
 }

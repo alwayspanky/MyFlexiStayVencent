@@ -102,6 +102,29 @@
                 android:drawableRight="@drawable/ic_down_arrow"
                 android:background="@drawable/edittext_background"/>
 
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Furnishing Status"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/colorBlack"/>
+
+            <EditText
+                android:id="@+id/edt_furnishing_status"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Select"
+                android:textColor="@color/colorPrimary"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:drawableRight="@drawable/ic_down_arrow"
+                android:background="@drawable/edittext_background"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

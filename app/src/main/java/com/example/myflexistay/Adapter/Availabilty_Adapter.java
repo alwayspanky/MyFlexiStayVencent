@@ -59,8 +59,6 @@ public class Availabilty_Adapter extends RecyclerView.Adapter<Availabilty_Adapte
                 }
             }
         });
-
-
     }
 
     @Override

@@ -17,8 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_height="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            >
+            android:layout_width="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,13 +116,12 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:icon="@drawable/key"
+                        app:icon="@drawable/keys"
                         android:backgroundTint="@color/toggle_back"
                         app:iconGravity="textStart"
                         android:text="RENT"
                         android:textColor="@color/toggle_text_color"
-                        app:iconTint="@color/toggle_text_color"
-                        />
+                        app:iconTint="@color/toggle_text_color" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_buy"

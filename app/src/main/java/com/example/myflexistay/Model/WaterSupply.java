@@ -1,35 +1,44 @@
 package com.example.myflexistay.Model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Amenities {
+public class WaterSupply {
 
 
     @SerializedName("response")
     Response response;
 
-    @SerializedName("amenities")
-    ArrayList<Amenities_Types> amenitiesTypes;
+    @SerializedName("types")
+    ArrayList<WaterSupply.water_supply> water_supplies;
 
-    public class Amenities_Types {
+
+    public class water_supply{
+
         @SerializedName("updation_date")
-        String updationDate;
+        @Expose
+        private String updationDate;
         @SerializedName("code")
-        String code;
+        @Expose
+        private String code;
         @SerializedName("operator_id")
-        String operatorId;
-        @SerializedName("icon_url")
-        String icon_url;
+        @Expose
+        private String operatorId;
         @SerializedName("is_live")
-        String isLive;
+        @Expose
+        private Boolean isLive;
         @SerializedName("id")
-        int id;
+        @Expose
+        private Integer id;
         @SerializedName("name")
-        String name;
+        @Expose
+        private String name;
         @SerializedName("creation_date")
-        String creationDate;
+        @Expose
+        private String creationDate;
 
         public String getUpdationDate() {
             return updationDate;
@@ -55,28 +64,19 @@ public class Amenities {
             this.operatorId = operatorId;
         }
 
-
-        public String getIcon_url() {
-            return icon_url;
-        }
-
-        public void setIcon_url(String icon_url) {
-            this.icon_url = icon_url;
-        }
-
-        public String getIsLive() {
+        public Boolean getLive() {
             return isLive;
         }
 
-        public void setIsLive(String isLive) {
-            this.isLive = isLive;
+        public void setLive(Boolean live) {
+            isLive = live;
         }
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -96,17 +96,15 @@ public class Amenities {
             this.creationDate = creationDate;
         }
 
-
     }
 
-    public ArrayList<Amenities_Types> getAmenitiesTypes() {
-        return amenitiesTypes;
+    public ArrayList<water_supply> getWater_supplies() {
+        return water_supplies;
     }
 
-    public void setAmenitiesTypes(ArrayList<Amenities_Types> amenitiesTypes) {
-        this.amenitiesTypes = amenitiesTypes;
+    public void setWater_supplies(ArrayList<water_supply> water_supplies) {
+        this.water_supplies = water_supplies;
     }
-
     class Response{
         @SerializedName("statusCode")
         String statusCode;

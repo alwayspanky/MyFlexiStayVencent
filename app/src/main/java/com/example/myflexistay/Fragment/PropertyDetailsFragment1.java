@@ -63,7 +63,6 @@ public class PropertyDetailsFragment1 extends Fragment {
     }
 
     private EditText edtApartment, edt_facing, edt_bhk, edt_property_age, edt_floor1, edt_floor2, edt_apartment_name;
-//    String apartment, name, bhk, floor, totalfloor, propertyage;
     LinearLayout view;
     boolean opened;
     RecyclerView recyclerView;
@@ -438,57 +437,57 @@ public class PropertyDetailsFragment1 extends Fragment {
     }
 
     public void SaveContinue() {
-
-
-
-        String apartment = edtApartment.getText().toString();
-        String apartment_name = edt_apartment_name.getText().toString();
-        String bhk = edt_bhk.getText().toString();
-        String floor = edt_floor1.getText().toString();
-        String floor_total = edt_floor2.getText().toString();
-        String property_age = edt_property_age.getText().toString();
-
-        int valid = 1;
-
-        if (apartment.isEmpty() || apartment.length() < 10) {
-            edtApartment.setError("Enter Apartment Type");
-            edtApartment.requestFocus();
-            valid = 0;
-        }
-
-        if (apartment_name.isEmpty() || apartment_name.length() < 10) {
-            edt_apartment_name.setError("Enter Apartment Name");
-            edt_apartment_name.requestFocus();
-            valid = 0;
-        }
-
-        if (bhk.isEmpty()) {
-            edt_bhk.setError("Enter BHK ");
-            edt_bhk.requestFocus();
-            valid = 0;
-        }
-        if (floor.isEmpty() ) {
-            edt_floor1.setError("Enter Floor Number");
-            edt_floor1.requestFocus();
-            valid = 0;
-        }
-        if (floor_total.isEmpty() ) {
-            edt_floor2.setError("Enter Total Floor");
-            edt_floor2.requestFocus();
-            valid = 0;
-        }
-        if (property_age.isEmpty() || property_age.length() < 10) {
-            edt_property_age.setError("Enter Property Age");
-            edt_property_age.requestFocus();
-            valid = 0;
-        }
-
-        if (valid == 1){
+//
+//
+//
+//        String apartment = edtApartment.getText().toString();
+//        String apartment_name = edt_apartment_name.getText().toString();
+//        String bhk = edt_bhk.getText().toString();
+//        String floor = edt_floor1.getText().toString();
+//        String floor_total = edt_floor2.getText().toString();
+//        String property_age = edt_property_age.getText().toString();
+//
+//        int valid = 1;
+//
+//        if (apartment.isEmpty() || apartment.length() < 10) {
+//            edtApartment.setError("Enter Apartment Type");
+//            edtApartment.requestFocus();
+//            valid = 0;
+//        }
+//
+//        if (apartment_name.isEmpty() || apartment_name.length() < 10) {
+//            edt_apartment_name.setError("Enter Apartment Name");
+//            edt_apartment_name.requestFocus();
+//            valid = 0;
+//        }
+//
+//        if (bhk.isEmpty()) {
+//            edt_bhk.setError("Enter BHK ");
+//            edt_bhk.requestFocus();
+//            valid = 0;
+//        }
+//        if (floor.isEmpty() ) {
+//            edt_floor1.setError("Enter Floor Number");
+//            edt_floor1.requestFocus();
+//            valid = 0;
+//        }
+//        if (floor_total.isEmpty() ) {
+//            edt_floor2.setError("Enter Total Floor");
+//            edt_floor2.requestFocus();
+//            valid = 0;
+//        }
+//        if (property_age.isEmpty() || property_age.length() < 10) {
+//            edt_property_age.setError("Enter Property Age");
+//            edt_property_age.requestFocus();
+//            valid = 0;
+//        }
+//
+//        if (valid == 1){
 
             postPropertyDetails();
         }
 
-    }
+
 
     private void postPropertyDetails() {
 

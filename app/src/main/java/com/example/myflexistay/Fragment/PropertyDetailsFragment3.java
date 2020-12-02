@@ -21,10 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.myflexistay.Adapter.Furnishing_Status_Adapter;
 import com.example.myflexistay.Adapter.Parking_Adapter;
 import com.example.myflexistay.Adapter.Property_Age_Adapter;
 import com.example.myflexistay.Adapter.Tenant_Adapter;
 import com.example.myflexistay.Api.ApiClient;
+import com.example.myflexistay.Model.Furnishing_Status;
 import com.example.myflexistay.Model.Parking;
 import com.example.myflexistay.Model.Tenant;
 import com.example.myflexistay.R;
@@ -63,15 +65,17 @@ public class PropertyDetailsFragment3 extends Fragment {
     EditText datepicker;
 
 
-    EditText tenant, parking, expectedRent, expectedDeposite, availableFrom;
+    EditText tenant, parking, expectedRent, expectedDeposite, availableFrom, furnishing;
     RadioGroup maintenance;
     RecyclerView recyclerView;
     String SelectedPreferredName;
     String SelectedParking;
+    String SelectedFurnishing;
     LinearLayout view;
     boolean opened;
     ApiClient apiClient;
     ArrayList<Tenant.Tenanttypes> tenanttypes;
+    ArrayList<Furnishing_Status.furnishing_status> furnishing_statuses;
     ArrayList<Parking.parking> parkings;
 
     @Override
@@ -83,10 +87,12 @@ public class PropertyDetailsFragment3 extends Fragment {
 
         apiClient = new ApiClient();
         tenanttypes = new ArrayList<>();
+        furnishing_statuses = new ArrayList<>();
         parkings = new ArrayList<>();
         tenant = v.findViewById(R.id.edt_preferred);
-        recyclerView = v.findViewById(R.id.dropdown_recyclerview);
+        furnishing = v.findViewById(R.id.edt_furnishing_status);
         parking = v.findViewById(R.id.edt_parking);
+        recyclerView = v.findViewById(R.id.dropdown_recyclerview);
         expectedRent = v.findViewById(R.id.edt_expectedRent);
         expectedDeposite = v.findViewById(R.id.edt_expectedDeposite);
         maintenance = v.findViewById(R.id.radio_maintenance);
@@ -125,7 +131,6 @@ public class PropertyDetailsFragment3 extends Fragment {
                         if (response.isSuccessful()){
                             tenanttypes.clear();
                             tenanttypes.addAll(response.body().getTypes());
-//                            tenanttypes.add(response.body().Tenanttypes());
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             Tenant_Adapter tenant_adapter = new Tenant_Adapter(getActivity(), tenanttypes);
                             recyclerView.setAdapter(tenant_adapter);
@@ -175,13 +180,15 @@ public class PropertyDetailsFragment3 extends Fragment {
                 apiClient.apiInterface.getParking().enqueue(new Callback<Parking>() {
                     @Override
                     public void onResponse(Call<Parking> call, Response<Parking> response) {
-                     parkings.addAll(response.body().getParkingstypes());
-                        parkings.clear();
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        Parking_Adapter parking_adapter = new Parking_Adapter(getActivity(),parkings);
-                        recyclerView.setAdapter(parking_adapter);
-                        parking_adapter.notifyDataSetChanged();
-                        parking_adapter.setOnOrderClickedListener(new ClickListener1());
+                        if (response.isSuccessful()) {
+                            parkings.clear();
+                            parkings.addAll(response.body().getParkingstypes());
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            Parking_Adapter parking_adapter = new Parking_Adapter(getActivity(), parkings);
+                            recyclerView.setAdapter(parking_adapter);
+                            parking_adapter.notifyDataSetChanged();
+                            parking_adapter.setOnOrderClickedListener(new ClickListener1());
+                        }
                     }
 
                     @Override
@@ -217,40 +224,93 @@ public class PropertyDetailsFragment3 extends Fragment {
         });
 
 
+        furnishing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiClient.apiInterface.getFurnishingStatus().enqueue(new Callback<Furnishing_Status>() {
+                    @Override
+                    public void onResponse(Call<Furnishing_Status> call, Response<Furnishing_Status> response) {
+
+                        if (response.isSuccessful()){
+                            furnishing_statuses.clear();
+                            furnishing_statuses.addAll(response.body().getFurnishingStatuses());
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            Furnishing_Status_Adapter furnishing_status_adapter = new Furnishing_Status_Adapter(getActivity(), furnishing_statuses);
+                            recyclerView.setAdapter(furnishing_status_adapter);
+                            furnishing_status_adapter.notifyDataSetChanged();
+                            furnishing_status_adapter.setOnOrderClickedListener(new ClickListener2());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Furnishing_Status> call, Throwable t) {
+                        Log.d("TAG", "onFailure: "+t.toString());
+
+                    }
+                });
+
+                if (!opened) {
+                    view.setVisibility(View.VISIBLE);
+                    TranslateAnimation animate = new TranslateAnimation(
+                            0,
+                            0,
+                            view.getHeight(),
+                            0);
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    view.startAnimation(animate);
+                } else {
+                    view.setVisibility(View.INVISIBLE);
+                    TranslateAnimation animate = new TranslateAnimation(
+                            0,
+                            0,
+                            0,
+                            view.getHeight());
+                    animate.setDuration(500);
+                    animate.setFillAfter(true);
+                    view.startAnimation(animate);
+                }
+                opened = !opened;
+
+            }
+        });
+
+
 
         Button pro3 = v.findViewById(R.id.fragment_button3);
         pro3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String expRent = expectedRent.getText().toString();
-                String expDeposite = expectedDeposite.getText().toString();
-                String date = availableFrom.getText().toString();
-                String prefTenent = tenant.getText().toString();
-                String expParking = parking.getText().toString();
-                int isMaintenance = maintenance.getCheckedRadioButtonId();
-
-
-                int valid = 1;
-
-
-
-                if (expRent.isEmpty() || expRent.length() < 10) {
-                    expectedRent.setError("Enter Rent");
-                    expectedRent.requestFocus();
-                    valid = 0;
-                }
-
-                if (expDeposite.isEmpty()) {
-                    expectedDeposite.setError("Enter Deposit ");
-                    expectedDeposite.requestFocus();
-                    valid = 0;
-                }
-
-                if (valid == 1){
-
+//
+//                String expRent = expectedRent.getText().toString();
+//                String expDeposite = expectedDeposite.getText().toString();
+//                String date = availableFrom.getText().toString();
+//                String prefTenent = tenant.getText().toString();
+//                String expParking = parking.getText().toString();
+//                int isMaintenance = maintenance.getCheckedRadioButtonId();
+//
+//
+//                int valid = 1;
+//
+//
+//
+//                if (expRent.isEmpty() || expRent.length() < 10) {
+//                    expectedRent.setError("Enter Rent");
+//                    expectedRent.requestFocus();
+//                    valid = 0;
+//                }
+//
+//                if (expDeposite.isEmpty()) {
+//                    expectedDeposite.setError("Enter Deposit ");
+//                    expectedDeposite.requestFocus();
+//                    valid = 0;
+//                }
+//
+//                if (valid == 1){
+//
+//                    postLocalityDetails();
+//                }
                     postLocalityDetails();
-                }
 
             }
         });
@@ -309,7 +369,7 @@ public class PropertyDetailsFragment3 extends Fragment {
         @Override
         public void onOrderClickedListener(Tenant.Tenanttypes tenanttypes) {
             SelectedPreferredName = tenanttypes.getName();
-            Log.d("TAG", "onOrderClickListner: " + SelectedPreferredName );
+            Log.d("TAG", "onOrderClickListener: " + SelectedPreferredName );
             tenant.setText(SelectedPreferredName);
         }
     }
@@ -319,8 +379,18 @@ public class PropertyDetailsFragment3 extends Fragment {
         @Override
         public void onOrderClickedListener(Parking.parking parking2) {
             SelectedParking = parking2.getName();
-            Log.d("TAG", "onOrderClickListner: " + SelectedParking );
+            Log.d("TAG", "onOrderClickListener: " + SelectedParking );
             parking.setText(SelectedParking);
+        }
+    }
+
+    private class ClickListener2 implements Furnishing_Status_Adapter.onOrderClickedListener{
+
+        @Override
+        public void onOrderClickedListener(Furnishing_Status.furnishing_status furnishingStatus) {
+            SelectedFurnishing = furnishingStatus.getName();
+            Log.d("TAG", "onOrderClickListener: " + SelectedFurnishing );
+            furnishing.setText(SelectedFurnishing);
         }
     }
 }

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myflexistay.Model.Amenities;
 import com.example.myflexistay.R;
 
@@ -35,11 +38,17 @@ public class Amenties_Adapter extends RecyclerView.Adapter<Amenties_Adapter.amen
         return new amentiesholder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull amentiesholder holder, int position) {
 
         Amenities.Amenities_Types amenities= amenitiesList.get(position);
-        holder.radioButton.setText(amenities.getName());
+        holder.textView.setText(amenities.getName());
+        Glide.with(context).load(amenities.getIcon_url())
+                .into(holder.imageView);
+
+
+
     }
 
     @Override
@@ -50,10 +59,14 @@ public class Amenties_Adapter extends RecyclerView.Adapter<Amenties_Adapter.amen
     public class amentiesholder extends RecyclerView.ViewHolder {
 
         RadioButton radioButton;
+        TextView textView;
+        ImageView imageView;
 
         public amentiesholder(@NonNull View itemView) {
             super(itemView);
             radioButton = itemView.findViewById(R.id.radio_button_lift);
+            textView = itemView.findViewById(R.id.txt_amenity);
+            imageView = itemView.findViewById(R.id.img_amenity);
         }
     }
 }

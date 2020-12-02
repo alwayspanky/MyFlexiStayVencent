@@ -6,8 +6,12 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
     <LinearLayout
@@ -17,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <LinearLayout
             android:id="@+id/linearlayout1"
@@ -39,7 +44,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/linearlayout2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -50,23 +55,31 @@
             app:layout_constraintTop_toBottomOf="@+id/linearlayout1">
 
 
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:id="@+id/img_flexi"/>
+
+
             <TextView
                 android:id="@+id/txt1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/colorBlack"
                 android:text="Myflexi"
-                android:textSize="22sp" />
+                android:textSize="27sp" />
 
             <TextView
                 android:id="@+id/txt2"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
                 android:text="Stay"
                 android:textColor="@color/colorBlack"
-                android:textSize="22sp"
+                android:textSize="27sp"
                 android:textStyle="bold" />
 
 
@@ -99,16 +112,17 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:padding="5dp"
-                    android:text="Username" />
+                    android:text="Mobile" />
 
 
                 <EditText
-                    android:id="@+id/edt1"
+                    android:id="@+id/edt_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:hint="User Name"
+                    android:inputType="number"
+                    android:hint="Mobile"
                     android:padding="10dp"
                     android:textColorHint="@color/colorPrimaryDark" />
 
@@ -120,19 +134,26 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:padding="5dp"
+                    android:paddingLeft="5dp"
                     android:text="Password" />
 
-
-                <EditText
-                    android:id="@+id/edt2"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    app:passwordToggleEnabled="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:hint="Password"
-                    android:padding="10dp"
-                    android:textColorHint="@color/colorPrimaryDark" />
+                    app:passwordToggleDrawable="@drawable/pass_visibility">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:inputType="textPassword"
+                        android:paddingLeft="10dp"
+                        android:textColorHint="@color/colorPrimaryDark"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/txt5"
@@ -144,23 +165,40 @@
                     android:textSize="15sp" />
 
                 <LinearLayout
+                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:src="@drawable/google"
+                            android:layout_gravity="start" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/google" />
+                        android:layout_marginLeft="90dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="end"
+                        android:src="@drawable/facebook"
+                        />
 
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="240dp"
-                        android:src="@drawable/facebook" />
-
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -177,27 +215,34 @@
                     android:textColor="@android:color/white" />
 
 
-                <TextView
-
-                    android:id="@+id/txt6"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:text="First time here?Create an account"
+                    android:layout_marginTop="8dp"
+                    android:text="Don't have an account?"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/txt7"
+                    android:layout_marginLeft="8dp"
+                    android:id="@+id/txt_register"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="Signup"
+                    android:layout_marginTop="8dp"
+                    android:text="Register"
                     android:textColor="@color/colorBlack"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -205,5 +250,5 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

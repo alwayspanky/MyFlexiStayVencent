@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,55 @@ public class PropertyDetailsFragment2 extends Fragment {
         address = v.findViewById(R.id.edt_address);
         pincode = v.findViewById(R.id.edt_pincode);
         apiClient = new ApiClient();
+
+        JsonObject data = new JsonObject();
+
+        int state_id = 1;
+        try {
+            data.addProperty("state_id", state_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        apiClient.apiInterface.postCities(data).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("TAG", "onResponse: " + response);
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(getActivity(), "Network Problem !", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        JsonObject data1 = new JsonObject();
+
+        int city_id = 1;
+        try {
+            data1.addProperty("city_id", city_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        apiClient.apiInterface.postLocalities(data1).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("TAG", "onResponse: " + response);
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(getActivity(), "Network Problem !", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
 
         Button pro2 = v.findViewById(R.id.fragment_button2);
         pro2.setOnClickListener(new View.OnClickListener() {

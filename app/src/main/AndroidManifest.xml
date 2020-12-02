@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity android:name=".Activity.WalletActivity"></activity>
-        <activity android:name=".Activity.ConfirmationActivity"/>
         <activity android:name=".Activity.ProfileActivity"/>
         <activity android:name=".Navigation.Profilescreen"/>
         <activity android:name=".Navigation.Chatscreen"/>
@@ -23,11 +22,11 @@
         <activity android:name=".Activity.PropertyListingActivity"></activity>
         <activity android:name=".Activity.PropertyDetailsActivity"></activity>
         <activity android:name=".Rentscreen" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.LoginActivity"/>
         <activity android:name=".Activity.PostPropertyActivity" />
         <activity android:name=".Activity.MainActivity" />
 
-        <activity android:name=".SplashScreen">
+        <activity android:name=".Activity.Splash_Screen">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,16 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Amenities {
+public class Furnishing {
+
 
 
     @SerializedName("response")
     Response response;
 
-    @SerializedName("amenities")
-    ArrayList<Amenities_Types> amenitiesTypes;
+    @SerializedName("furnishings")
+    ArrayList<Furnishing_Types> furnishing_types;
 
-    public class Amenities_Types {
+
+    public class Furnishing_Types{
+
         @SerializedName("updation_date")
         String updationDate;
         @SerializedName("code")
@@ -55,7 +58,6 @@ public class Amenities {
             this.operatorId = operatorId;
         }
 
-
         public String getIcon_url() {
             return icon_url;
         }
@@ -95,18 +97,15 @@ public class Amenities {
         public void setCreationDate(String creationDate) {
             this.creationDate = creationDate;
         }
-
-
     }
 
-    public ArrayList<Amenities_Types> getAmenitiesTypes() {
-        return amenitiesTypes;
+    public ArrayList<Furnishing_Types> getFurnishing_types() {
+        return furnishing_types;
     }
 
-    public void setAmenitiesTypes(ArrayList<Amenities_Types> amenitiesTypes) {
-        this.amenitiesTypes = amenitiesTypes;
+    public void setFurnishing_types(ArrayList<Furnishing_Types> furnishing_types) {
+        this.furnishing_types = furnishing_types;
     }
-
     class Response{
         @SerializedName("statusCode")
         String statusCode;

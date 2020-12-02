@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:layout_height="wrap_content">
+    android:padding="10dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +17,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/radio_button_lift"
+            android:id="@+id/radio_button_furnish"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-
             android:drawablePadding="8dp"
             />
 
@@ -33,14 +31,14 @@
             android:background="@drawable/edittext_background">
 
             <ImageView
-                android:id="@+id/img_amenity"
+                android:id="@+id/img_furnishing"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/txt_amenity"
+                android:id="@+id/txt_furnishing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -48,5 +46,8 @@
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
     </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
